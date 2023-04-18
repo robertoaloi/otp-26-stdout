@@ -9,6 +9,7 @@ chmod +x server
 OTP 25:
 
 ```
+asdf global erlang 25.3
 ./client
 <<131,104,4,100,0,2,105,115,100,0,4,116,104,105,115,100,0,1,97,100,0,3,98,117,103>>
 {is,this,a,bug}%
@@ -17,6 +18,7 @@ OTP 25:
 OTP 26:
 
 ```
+asdf global erlang 26.0-rc3
 ./client
 <<194,131,104,4,119,2,105,115,119,4,116,104,105,115,119,1,97,119,3,98,117,103>>
 escript: exception error: bad argument
