@@ -1,0 +1,23 @@
+#!/usr/bin/env escript
+
+-export([main/1]).
+
+main(_) ->
+    GL = erlang:group_leader(),
+    io:setopts(GL, [binary]),
+    loop(GL).
+
+loop(GL) ->
+    case io:get_line(GL, "") of
+        Line when is_binary(Line) ->
+            process(binary_part(Line, 0, byte_size(Line) - 1), GL),
+            loop(GL);
+        _ ->
+            erlang:halt(1)
+    end.
+
+process(<<"REQUEST">>, GL) ->
+    Data = term_to_binary({is, this, a, bug}),
+    file:write(GL, [<<"REPLY ">> | Data]);
+process(<<"EXIT">>, _GL) ->
+    init:stop().

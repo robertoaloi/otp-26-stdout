@@ -1,0 +1,14 @@
+#!/usr/bin/env escript
+
+-export([main/1]).
+
+main(_) ->
+    Port = open_port({spawn_executable, "server"},
+                     [binary, use_stdio, stream, exit_status]),
+    port_command(Port, "REQUEST\n"),
+    receive
+        {_Port, {data, <<"REPLY ", Data/binary>>}} ->
+            erlang:display(Data),
+            io:format("~p", [binary_to_term(Data)])
+    end,
+    port_command(Port, "EXIT").
